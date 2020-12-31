@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Task manager</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">{{request.user.username}}</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'addtask' %}">Add Task</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'home' %}">Help</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'logout' %}">Log out</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- profile  -->
+  <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h7 class="display-4">Profile</h7>
+    <p class="lead">Name : {{request.user.username}}</p>
+    <br>
+    <p class="lead">Email : {{request.user.email}}</p>
+    <br>
+    <p class="lead">Position : {{request.user.position}}</p>
+    <br>
+    <a href="{% url 'reset_password' %}"> reset password?</a>
+  </div>
+</div>
+
+  <!-- cards -->
+  <div class="container">
+        <div class="cardslist">
+            <h3 id="lbgr">Guarentees expiry date reached</h3>
+  <br>
+  {% if donetasks|length > 0 %}
+  <table id="table" border="1">
+    <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Description</th>
+      <th scope="col">Suppliers name</th>
+      <th scope="col">Contact no</th>
+      <th scope="col">Form of Security</th>
+      <!--
+      <th scope="col">Cell phone</th>
+      
+      <th scope="col">Types of Security</th>
+      <th scope="col">Form of Security</th>
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Reference No.</th>S
+      <th scope="col">Amount</th>
+      -->
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Issuing date</th>
+      <th scope="col">Expiry date</th>
+
+      <th scope="col">communicate w/ suppliers</th>
+      <th scope="col">communicate w/ the bank</th>
+      <th scope="col">Case Remark</th>
+      <th scope="col">Extend</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in donetasks %}
+    <tr id="row">
+      <td></td>
+      <td>
+        <a href="{% url 'edit' task.id %}">
+      {{task.title}}</a>
+        </td>
+      <td>{{task.supplier_name}}</td>
+      <td>{{task.contract_no}}</td>
+      <td>{{task.form_of_security}}</td>
+      <td>{{task.issuing_bank}}</td>
+      <td>{{task.issuing_date}}</td>
+      <td>{{task.expiry_date}}</td>
+      <td>{{task.extend_remindat}}</td>
+      <td>{{task.last_remindat}}</td>
+      <td>{{task.remark}}</td>
+      <td scope="col">
+        <a href="">
+          <i class="fas fa-expand-alt" style="color: green"></i>
+        </a>
+      </td>
+      <td scope="col">
+        <a href="{% url 'delete' task.id %}">
+          <i class="fas fa-trash-alt" style="color: red"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h4>No results found....</h4>
+  {% endif %}
+  <br>
+         </div>
+        </div>
+
+  <!-- tasklist -->
+
+
+
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/stylish-portfolio.min.js' %}"></script>
+
+
+
+</body>
+
+<style type="text/css">
+  .cardslist{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+  }
+  table {
+      counter-reset: rowNumber-1;
+    }
+    
+    table tr {
+      counter-increment: rowNumber ;
+    }
+    
+    table tr td:first-child::before {
+      content: counter(rowNumber);
+      min-width: 1em;
+      margin-right: 0.5em;
+    }
+    #lbgr{
+      background-color: lightblue;
+    }
+    #lbgw{
+      background-color: yellow
+    }
+    #lbgd{
+      background-color: red
+    }
+    h4{
+      font-style: italic;
+    }
+    .jumbotron {
+      background-color: red
+      background-image: "https://images.unsplash.com/photo-1576961453646-b4c376c7021b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8d29ya3BsYWNlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+    }
+</style>
+</html>

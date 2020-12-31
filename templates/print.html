@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Task manager</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+
+  <!-- cards -->
+
+  <div class="container">
+        <div class="cardslist">
+  <br>
+  {% if tasks|length > 0 %}
+  <table id="table" border="1">
+    <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Description</th>
+      <th scope="col">Suppliers Name</th>
+      <th scope="col">Cell phone</th>
+      <th scope="col">Contact no</th>
+      <th scope="col">Types of Security</th>
+      <th scope="col">Form of Security</th>
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Reference No.</th>
+      <th scope="col">Issuing date</th>\
+      <th scope="col">Expiry date</th>
+      <th scope="col">Needs to be communicated 10 days before expiry date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Remark</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr id="row">
+      <td></td>
+      <td>
+      {{task.title}}
+        </td>
+      <td>{{task.supplier_name}}</td>
+      <td>{{task.cellphone}}</td>
+      <td>{{task.contract_no}}</td>
+      <td>{{task.types_of_securtiy}}</td>
+      <td>{{task.form_of_security}}</td>
+      <td>{{task.issuing_bank}}</td>
+      <td>{{task.reference_no}}</td>
+      <td>{{task.issuing_date}}</td>
+      <td>{{task.expiry_date}}</td>
+      <td>{{task.extend_remindat}}</td>
+      <td>{{task.amount}}</td>
+      <td>{{task.remark}}</td>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h4>No results found....</h4>
+{% endif %}
+<br>
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/stylish-portfolio.min.js' %}"></script>
+
+
+
+</body>
+
+<style type="text/css">
+  .cardslist{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+  }
+  table {
+      counter-reset: rowNumber-1;
+    }
+    
+    table tr {
+      counter-increment: rowNumber ;
+    }
+    
+    table tr td:first-child::before {
+      content: counter(rowNumber);
+      min-width: 1em;
+      margin-right: 0.5em;
+    }
+    #lbgr{
+      background-color: lightblue;
+    }
+    #lbgw{
+      background-color: yellow
+    }
+    #lbgd{
+      background-color: red
+    }
+    h4{
+      font-style: italic;
+    }
+</style>
+</html>

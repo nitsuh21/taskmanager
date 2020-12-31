@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Task manager</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">{{request.user.username}}</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'addtask' %}">Add Task</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'home' %}">Help</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'logout' %}">Log out</a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- cards -->
+
+  <div class="container">
+        <div class="container-fluid">
+          <div class="cardslist row">
+            <div class=" col-xl-4 col-lg-12">
+              <div class="card card-chart">
+                <div class="card-header card-header-success">
+                  <img class="card-img-top" src="{% static 'img/jobdone.jpg' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Done tasks</h4>
+                  <p class="card-category">Completed</p>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                   <a href="{% url 'donetasks' %}" class="btn btn-primary">manage</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-12">
+              <div class="card card-chart">
+                <div class="card-header card-header-warning">
+                  <img class="card-img-top" src="{% static 'img/unfinished.jpg' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Incompleted tasks</h4>
+                  <p class="card-category">Incompleted</p>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <a href="{% url 'incompletedtasks' %}" class="btn btn-primary">manage</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-12">
+              <div class="card card-chart">
+                <div class="card-header card-header-danger">
+                  <img class="card-img-top" src="{% static 'img/todo.jpg' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Todo List</h4>
+                  <p class="card-category">Scheduler</p>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <a href="#" class="btn btn-primary">manage</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+        </div>
+
+
+  <!-- tasklist -->
+  <labe style="{color: red"><h2>List of Performance and Advance payment Guarantee</h2></label>
+  <br>
+  <!-- search -->
+<div id="search">
+  <form class="navbar-form" action="search/" method="POST">
+  {% csrf_token %}
+  <div class="input-group no-border">
+    <input type="text" value="" name="search" class="form-control" placeholder="Search for Guarantees by suppliers name...">
+    <button type="submit" class="btn btn-default btn-round btn-just-icon">
+      <i class="material-icons">search</i>
+      <div class="ripple-container"></div>
+    </button>
+  </div>
+</form>
+</div>
+<br>
+  <div class="stats">
+    <a href="{% url 'addtask' %}" class="btn btn-success">Add a new garantee + </a>
+    <br><br>
+    {% if request.user.is_superuser %}
+    <a href="{% url 'createofficer' %}" class="btn btn-primary"> Create a new officer +</a>
+    <br><br>
+    {% endif %}
+    <h3>It is {% now "jS F Y H:i" %}</h3>
+  </div>
+  <br>
+</label>
+  <table id="table" border=1>
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Description</th>
+      <th scope="col">Suppliers name</th>
+      <th scope="col">Contract No</th>
+      <th scope="col">Form of Security</th>
+      <!--
+      <th scope="col">Cell phone</th>
+      
+      <th scope="col">Types of Security</th>
+      <th scope="col">Form of Security</th>
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Reference No.</th>S
+      <th scope="col">Amount</th>
+      -->
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Issuing date</th>
+      <th scope="col">Expiry date</th>
+
+      <th scope="col">communicate with suppliers</th>
+      <th scope="col">communicate with the bank</th>
+      <th scope="col">Case Remark</th>
+      <th scope="col">Extend</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr id="row">
+      <td></td>
+      <td>
+        <a href="{% url 'edit' task.id %}">
+      {{task.title}}</a>
+        </td>
+      <td>{{task.supplier_name}}</td>
+      <td>{{task.contract_no}}</td>
+      <td>{{task.form_of_security}}</td>
+      <td>{{task.issuing_bank}}</td>
+      <td>{{task.issuing_date}}</td>
+      <td>{{task.expiry_date}}</td>
+      <td>{{task.extend_remindat}}</td>
+      <td>{{task.last_remindat}}</td>
+      <td>{{task.remark}}</td>
+      <td scope="col">
+        <a href="">
+          <i class="fas fa-expand-alt" style="color: green"></i>
+        </a>
+      </td>
+      <td scope="col">
+        <a href="{% url 'delete' task.id %}">
+          <i class="fas fa-trash-alt" style="color: red"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+ <br>
+
+<a href="{% url 'printing' %}" class="btn btn-success">Print</a>
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/stylish-portfolio.min.js' %}"></script>
+
+  <script type="text/javascript">
+
+    var table = document.getElementById('table')
+    var rows = document.getElementById('table').rows.length
+    console.log(rows)
+    var array = [];
+
+    for (var i = 1, row; row = table.rows[i]; i++) {
+       //iterate through rows
+       //rows would be accessed using the "row" variable assigned in the for loop
+       console.log(i)
+       console.log("hi")
+       for (var j = 0, col; col = row.cells[j]; j++) {
+         //iterate through columns
+         //columns would be accessed using the "col" variable assigned in the for loop
+         if(table.rows[i].cells[10].innerHTML == "warning")
+         {
+          console.log(i)
+          console.log(table.rows[i].cells[10].innerHTML)
+          table.rows[i].style.backgroundColor = "yellow"
+          console.log("its priniting")
+         }
+         if(table.rows[i].cells[10].innerHTML == "danger")
+         {
+          console.log(i)
+          console.log(table.rows[i].cells[10].innerHTML)
+          table.rows[i].style.backgroundColor = "red"
+          console.log("its priniting")
+         }
+         if(table.rows[i].cells[10].innerHTML == "expired")
+         {
+          console.log(i)
+          console.log(table.rows[i].cells[10].innerHTML)
+          table.rows[i].style.backgroundColor = "lightblue"
+          console.log("its priniting")
+         }
+       }  
+    }
+    
+  </script>
+
+</body>
+
+<style type="text/css">
+  .cardslist{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+  }
+  table {
+      counter-reset: rowNumber-1;
+    }
+    
+    table tr {
+      counter-increment: rowNumber ;
+    }
+    
+    table tr td:first-child::before {
+      content: counter(rowNumber);
+      min-width: 1em;
+      margin-right: 0.5em;
+    }
+    #search{
+      width:40%;
+      background-color: green
+    }
+</style>
+</html>

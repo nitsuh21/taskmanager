@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Task manager</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">PCAD's task manager</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'addtask' %}">Add Task</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'home' %}">Help</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'logout' %}">Log out</a>
+      </li>
+    </ul>
+  </nav>
+  
+   <!-- form -->
+   {%for message in messages%}
+      <div class="alert alert-danger" data-notify="container">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <i class="material-icons">close</i>
+        </button>
+        <span data-notify="message">{{message}}</span>
+      </div>
+    {% endfor%}
+
+  <!-- form -->
+  <div class="addform">
+  <form method="POST" action="addtask">
+    {% csrf_token %}
+  <div class="form-group row">
+  <label class="col-2 col-form-label">Items/Services/Work Dscription</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="title">
+  </div>
+</div>
+
+  <div class="form-group row">
+  <label class="col-2 col-form-label">Suppliers Name</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="suppliersname">
+  </div>
+</div>
+
+  <div class="form-group row">
+  <label class="col-2 col-form-label">Cell Phone</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="cellphone">
+  </div>
+</div>
+
+  <div class="form-group row">
+  <label class="col-2 col-form-label">Contract No</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="contractno">
+  </div>
+</div> 
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Type of Security</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="typeofsecurity">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Form of security</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="formofsecurity">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Issuing Bank</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="issuingbank">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Reference No</label>
+  <div class="col-10">
+    <input type="text" class="form-control" name="referenceno">
+  </div>
+</div>
+
+  <div class="form-group row">
+  <label class="col-2 col-form-label">Issuing Date</label>
+  <div class="col-10">
+    <input class="form-control" type="date" name="issuingdate">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Expiry Date</label>
+  <div class="col-10">
+    <input class="form-control" type="date" name="expirydate">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Informing the suppliers date</label>
+  <div class="col-10">
+    <input class="form-control" type="date" name="informsupdate">
+  </div>
+   <small style="color:red" class="small"><strong><h6>Needs to be communicated atleast 10 days before exipry date</h6></strong>
+   </small>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Informing the bank date</label>
+  <div class="col-10">
+    <input class="form-control" type="date" name="informbankdate">
+  </div>
+  <small style="color: red" class="small"><strong><h6>Needs to be inform the bank atleast 4 days before exipry date</h6></strong></small>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Amount</label>
+  <div class="col-10">
+    <input type="integer" class="form-control" name="amount">
+  </div>
+</div>
+
+<button class="btn btn-success">Submit</button>
+</form>
+  </div>
+  
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/stylish-portfolio.min.js' %}"></script>
+
+</body>
+
+<style>
+  .addform{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+  }
+
+  .small{
+    margin-right: 100px
+  }
+  .alert{
+      margin-top: 12px;
+      margin-left: 24%;
+      margin-right: 9px;
+    }
+    .small{
+    margin-left: 20%;
+    font:italic;
+  }
+</style>
+</html>
