@@ -27,7 +27,7 @@ class Task(models.Model):
 	extend_remindat = models.DateField(auto_now=False,auto_now_add=False)
 	last_remindat = models.DateField(auto_now=False,auto_now_add=False)
 	expiry_date = models.DateField(auto_now=False,auto_now_add=False)
-	amount = models.IntegerField(default=0)
+	amount = models.CharField(max_length=100000000000,null=True)
 	extended = models.IntegerField(default=0)
 	daysleft = models.CharField(max_length=10000,null=True)
 	remark = models.CharField(max_length=1000,null=True)
