@@ -66,8 +66,8 @@
 
   <!-- cards -->
   <div class="container">
-        <div class="cardslist">
-            <h3 id="lbgr">Guarentees expiry date reached</h3>
+  <div class="cardslist">
+ <h3 id="lbgr">Guarentees expiry date reached</h3>
   <br>
   {% if donetasks|length > 0 %}
   <table id="table" border="1">
@@ -76,12 +76,13 @@
       <th scope="col">No</th>
       <th scope="col">Description</th>
       <th scope="col">Suppliers name</th>
-      <th scope="col">Contact no</th>
+      <th scope="col">Contract No</th>
+      <th scope="col">Types of Security</th>
       <th scope="col">Form of Security</th>
       <!--
       <th scope="col">Cell phone</th>
       
-      <th scope="col">Types of Security</th>
+      
       <th scope="col">Form of Security</th>
       <th scope="col">Issuing Bank</th>
       <th scope="col">Reference No.</th>S
@@ -91,8 +92,8 @@
       <th scope="col">Issuing date</th>
       <th scope="col">Expiry date</th>
 
-      <th scope="col">communicate w/ suppliers</th>
-      <th scope="col">communicate w/ the bank</th>
+      <th scope="col">Communicate with suppliers</th>
+      <th scope="col">Amount</th>
       <th scope="col">Case Remark</th>
       <th scope="col">Extend</th>
       <th scope="col">delete</th>
@@ -108,12 +109,81 @@
         </td>
       <td>{{task.supplier_name}}</td>
       <td>{{task.contract_no}}</td>
-      <td>{{task.form_of_security}}</td>
+      <td>{{task.types_of_security}}</td>
+      <td>{{task.form_of_Security}}</td>
       <td>{{task.issuing_bank}}</td>
       <td>{{task.issuing_date}}</td>
       <td>{{task.expiry_date}}</td>
       <td>{{task.extend_remindat}}</td>
-      <td>{{task.last_remindat}}</td>
+      <td>{{task.amount}}</td>
+      <td>{{task.remark}}</td>
+      <td scope="col">
+        <a href="">
+          <i class="fas fa-expand-alt" style="color: green"></i>
+        </a>
+      </td>
+      <td scope="col">
+        <a href="{% url 'delete' task.id %}">
+          <i class="fas fa-trash-alt" style="color: red"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h4>No results found....</h4>
+  {% endif %}
+  <br>
+  <h3 id="lbgr">Guarentees extended</h3>
+  <br>
+  {% if extendedtasks|length > 0 %}
+  <table id="table" border="1">
+    <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Description</th>
+      <th scope="col">Suppliers name</th>
+      <th scope="col">Contract No</th>
+      <th scope="col">Types of Security</th>
+      <th scope="col">Form of Security</th>
+      <!--
+      <th scope="col">Cell phone</th>
+      
+      
+      <th scope="col">Form of Security</th>
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Reference No.</th>S
+      <th scope="col">Amount</th>
+      -->
+      <th scope="col">Issuing Bank</th>
+      <th scope="col">Issuing date</th>
+      <th scope="col">Expiry date</th>
+
+      <th scope="col">Communicate with suppliers</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Case Remark</th>
+      <th scope="col">Extend</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in extendedtasks %}
+    <tr id="row">
+      <td></td>
+      <td>
+        <a href="{% url 'edit' task.id %}">
+      {{task.title}}</a>
+        </td>
+      <td>{{task.supplier_name}}</td>
+      <td>{{task.contract_no}}</td>
+      <td>{{task.types_of_security}}</td>
+      <td>{{task.form_of_Security}}</td>
+      <td>{{task.issuing_bank}}</td>
+      <td>{{task.issuing_date}}</td>
+      <td>{{task.expiry_date}}</td>
+      <td>{{task.extend_remindat}}</td>
+      <td>{{task.amount}}</td>
       <td>{{task.remark}}</td>
       <td scope="col">
         <a href="">
@@ -170,7 +240,7 @@
   .cardslist{
     margin-top: 50px;
     margin-bottom: 40px;
-    margin-left: 30px;
+    margin-left: 10px;
   }
   table {
       counter-reset: rowNumber-1;

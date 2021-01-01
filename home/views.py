@@ -69,9 +69,9 @@ def logout(request):
 def home(request):
 	if request.user.is_authenticated:
 		user = User.objects.filter(id=request.user.id)
-		tasks = Task.objects.filter(user=request.user).order_by('-id')
+		tasks = Task.objects.filter(user=request.user).order_by('-id').exclude(remark="extended")
 		if request.user.is_superuser:
-			tasks = Task.objects.all().order_by('-id')
+			tasks = Task.objects.all().order_by('-id').exclude(remark="extended")
 		now = datetime.datetime.now()
 		print("Date: "+ now.strftime("%Y-%m-%d"))
 		today = now.date()
@@ -119,8 +119,10 @@ def donetasks(request):
 	if request.user.is_authenticated:
 		user = User.objects.filter(id=request.user.id)
 		donetasks = Task.objects.filter(user=request.user,remark = "expired").order_by('-id')
+		extendedtasks = Task.objects.filter(user=request.user,remark = "extended").order_by('-id')
 		context ={
 		'donetasks':donetasks,
+		'extendedtasks':extendedtasks,
 		}
 		return render(request,'donetasks.html',context)
 	else:
@@ -149,7 +151,7 @@ def edit(request,id):
 			expirydate=request.POST['expirydate']
 			informsupdate=request.POST['informsupdate']
 			informbankdate=request.POST['informbankdate']
-			amount=request.POST['amount']
+			amount=request.POST.get('amount')
 			remark="safe"
 			
 			if expirydate <= issuingdate:
@@ -177,9 +179,15 @@ def edit(request,id):
 				print("wrong")
 				return render(request,'guaranteedetail.html')
 			else:
+				tasks = Task.objects.filter(contract_no=contractno)
+				for task in tasks:
+					task.remark="extended"
+					print(task)
+					print("extendedtask")
+					task.save()
 				task= Task(title=title, supplier_name=suppliersname, cell_phone=cellphone, contract_no=contractno, types_of_security=typeofsecurity,
-				form_of_Security=formofsecurity, issuing_date=issuingdate, extend_remindat=informsupdate, last_remindat=informbankdate,
-				expiry_date=expirydate, amount=amount, remark=remark)
+				form_of_Security=formofsecurity, issuing_date=issuingdate,issuing_bank=issuingbank, extend_remindat=informsupdate, last_remindat=informbankdate,
+				expiry_date=expirydate, amount=amount, remark=remark, Reference_no = referenceno)
 				task.save()
 				print(task.issuing_date)
 				print(task.expiry_date)
