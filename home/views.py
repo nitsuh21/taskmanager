@@ -305,7 +305,7 @@ def addtask(request):
 				return render(request,'addtask.html')
 			else:
 				task= Task(title=title, supplier_name=suppliersname, cell_phone=cellphone, contract_no=contractno, types_of_security=typeofsecurity,
-				form_of_Security=formofsecurity, issuing_date=issuingdate, extend_remindat=informsupdate, last_remindat=informbankdate,
+				form_of_Security=formofsecurity, issuing_bank=issuingbank, issuing_date=issuingdate, extend_remindat=informsupdate, last_remindat=informbankdate,
 				expiry_date=expirydate, amount=amount, remark=remark)
 				task.save()
 				print(task.issuing_date)
