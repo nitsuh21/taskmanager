@@ -258,7 +258,7 @@ def search(request):
 	if request.user.is_authenticated:
 		if request.method == 'POST':
 			key = request.POST.get('search')
-			tasks = Task.objects.filter(supplier_name=key)
+			tasks = Task.objects.filter(supplier_name__contains=key).order_by('-id')
 			print(tasks)
 			context={
 			'tasks' : tasks
